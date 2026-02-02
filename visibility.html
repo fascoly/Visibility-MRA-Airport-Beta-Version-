@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visibility Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f2f2f2;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 8px;
+      margin: 8px;
+    }
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Visibility Calculator</h2>
+
+  <label>PM10:</label><br>
+  <input type="number" id="pm10" step="any"><br>
+
+  <label>PM2.5:</label><br>
+  <input type="number" id="pm25" step="any"><br>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <h3 id="result">Visibility = ? km</h3>
+
+  <script>
+    function calculate() {
+      let pm10 = parseFloat(document.getElementById("pm10").value);
+      let pm25 = parseFloat(document.getElementById("pm25").value);
+
+      if (isNaN(pm10) || isNaN(pm25)) {
+        document.getElementById("result").innerHTML =
+          "Please enter both PM10 and PM2.5 values.";
+        return;
+      }
+
+      let extinction = (0.001 * pm10) + (0.002 * pm25);
+      let visibility = 3.912 / extinction;
+
+      document.getElementById("result").innerHTML =
+        "Visibility = " + visibility.toFixed(2) + " km";
+    }
+  </script>
+
+</body>
+</html>
